@@ -195,7 +195,7 @@ class Modelhandler:
         ICON_HTML = f'<img src="{ICON_URL}" alt="icon" style="width:50px; height:40px;">'
 
         if not history:
-            initial_response = f"{ICON_HTML} Woof! Woof! My name is Scout, you pup assistant! How can I assist you today?"
+            initial_response = f"{ICON_HTML} Woof! Woof! My name is Scout, your pup assistant! What can I fetch for you today?"
             return [{"role": "assistant", "content": initial_response}]
 
         # Check if the history needs to be cleared
