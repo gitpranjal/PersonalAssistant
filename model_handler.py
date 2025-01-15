@@ -6,8 +6,7 @@ import re
 import os
 import gradio as gr
 import shutil
-import time
-import sys
+import random
 
 
 
@@ -190,8 +189,16 @@ class Modelhandler:
         
 
     def chat_with_tool_icon(self, message, history):
+
+        IMAGES = [
+            "https://raw.githubusercontent.com/gitpranjal/PersonalAssistant/main/static/scout.jpg",
+            "https://raw.githubusercontent.com/gitpranjal/PersonalAssistant/main/static/scout2.jpg",
+            "https://raw.githubusercontent.com/gitpranjal/PersonalAssistant/main/static/scout3.jpg"
+
+        ]
  
-        ICON_URL = "https://raw.githubusercontent.com/gitpranjal/PersonalAssistant/main/static/scout.jpg"
+         # Randomly select an icon URL
+        ICON_URL = random.choice(IMAGES)
         ICON_HTML = f'<img src="{ICON_URL}" alt="icon" style="width:50px; height:40px;">'
 
         if not history:
