@@ -1,0 +1,24 @@
+name: llmenv
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - python-dotenv
+  - requests
+  - numpy
+  - pandas
+  - pytorch
+  - chromadb
+  - langchain
+  - langchain-chroma
+  - faiss-cpu
+  - tiktoken
+  - pip:
+    - transformers
+    - sentence-transformers
+    - gradio
+    - modal
+    - ollama
+    - langchain-community
