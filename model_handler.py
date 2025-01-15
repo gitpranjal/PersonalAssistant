@@ -190,24 +190,20 @@ class Modelhandler:
         
 
     def chat_with_tool_icon(self, message, history):
+ 
+        ICON_URL = "https://raw.githubusercontent.com/gitpranjal/PersonalAssistant/main/static/scout.jpg"
+        ICON_HTML = f'<img src="{ICON_URL}" alt="icon" style="width:50px; height:40px;">'
 
-        ICON_PATH = os.path.join(os.path.dirname(__file__), "static/scout.jpg")
-
-        # ICON_URL = f"file://{ICON_PATH}"  # Replace with your actual icon URL
-        ICON_URL = "https://uxwing.com/squirrel-color-icon/"
-
-        print(ICON_URL)
-        
         if not history:
-            initial_response = f"![icon]({ICON_URL}) Woof! Woof! How can I assist you today?"
-            return initial_response
+            initial_response = f"{ICON_HTML} Woof! Woof! My name is Scout, you pup assistant! How can I assist you today?"
+            return [{"role": "assistant", "content": initial_response}]
 
         # Check if the history needs to be cleared
         if self._is_clear_history_request(message):
             gr.update(history=[])
             self.delete_directory_with_files("knowledge_base")
             self.rag_handler.reset_vectorstore_data()
-            return [{"role": "assistant", "content": "Reset the history and cleared stored data"}]
+            return [{"role": "assistant", "content": f"{ICON_HTML} Reset the history and cleared stored data"}]
 
         repository_path = self.extract_local_directory_path(message)
         print(f"Extracted repository: {repository_path}")
@@ -215,33 +211,33 @@ class Modelhandler:
         # Update vectorstore if necessary
         if repository_path and self._is_rag_request(message):
             self.rag_handler.update_vectorstore(repository_path)
-            return [{"role": "assistant", "content": "Rag vector store updated"}]
+            return [{"role": "assistant", "content": f"{ICON_HTML} Rag vector store updated"}]
 
         # Check RAG handler response
         rag_response = self.rag_handler.chat(message).strip()
         print(f"Response from rag_handler object: \n{rag_response}")
         if rag_response != "NIL":
             print(f"Responding through rag vector store which gave the following response \n\n {rag_response}")
-            return [{"role": "assistant", "content": f"![icon]({ICON_URL}) {rag_response}"}]
+            return [{"role": "assistant", "content": f"{ICON_HTML} {rag_response}"}]
 
         # Handle cases without repository path
         if not repository_path:
             payload = {
                 "model": self.model,
                 "messages": [{"role": "system", "content": "You are a helpful assistant"}]
-                        + history
-                        + [{"role": "user", "content": message}],
+                            + history
+                            + [{"role": "user", "content": message}],
                 "stream": False
             }
             response = requests.post(self.localAPIUrl, json=payload, headers=self.header)
             if response.status_code == 200:
                 assistant_response = response.json().get("message", {}).get("content", "")
-                return [{"role": "assistant", "content": f"![icon]({ICON_URL}) {assistant_response}"}]
+                return [{"role": "assistant", "content": f"{ICON_HTML} {assistant_response}"}]
             else:
                 raise Exception(f"Error: {response.status_code}, {response.text}")
 
         # Prepare messages for the API call
-        messages = [{"role": "system", "content": "You are a helpful assistant to that analyzes code, folders repositories for their content"}]
+        messages = [{"role": "system", "content": "You are a helpful assistant that analyzes code, folders, and repositories for their content"}]
         messages += history + [{"role": "user", "content": message}]
 
         # Prepare the payload
@@ -282,15 +278,16 @@ class Modelhandler:
                 if follow_up_response.status_code == 200:
                     follow_up_data = follow_up_response.json()
                     final_content = follow_up_data.get("message", {}).get("content", "")
-                    return [{"role": "assistant", "content": f"![icon]({ICON_URL}) {final_content}"}]
+                    return [{"role": "assistant", "content": f"{ICON_HTML} {final_content}"}]
                 else:
                     raise Exception(f"Follow-up Error: {follow_up_response.status_code}, {follow_up_response.text}")
 
             else:
                 # Return the assistant's content with an icon
-                return [{"role": "assistant", "content": f"![icon]({ICON_URL}) {assistant_message.get('content', '')}"}]
+                return [{"role": "assistant", "content": f"{ICON_HTML} {assistant_message.get('content', '')}"}]
         else:
             raise Exception(f"Error: {response.status_code}, {response.text}")
+
 
 
     def stream_responses(self, response):
