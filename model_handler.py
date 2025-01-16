@@ -199,7 +199,7 @@ class Modelhandler:
  
          # Randomly select an icon URL
         ICON_URL = random.choice(IMAGES)
-        ICON_HTML = f'<img src="{ICON_URL}" alt="icon" style="width:50px; height:40px;">'
+        ICON_HTML = f'<img src="{ICON_URL}" alt="icon" style="width:45px; height:40px;">'
 
         if not history:
             initial_response = f"{ICON_HTML} Woof! Woof! My name is Scout, your pup assistant! What can I fetch for you today?"
@@ -231,7 +231,7 @@ class Modelhandler:
         if not repository_path:
             payload = {
                 "model": self.model,
-                "messages": [{"role": "system", "content": "You are a helpful assistant"}]
+                "messages": [{"role": "system", "content": "You are a helpful assistant puppy named Scout. Be cute but accurate. Be kind, helpful and loving"}]
                             + history
                             + [{"role": "user", "content": message}],
                 "stream": False
