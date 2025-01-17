@@ -22,3 +22,4 @@ dependencies:
     - modal
     - ollama
     - langchain-community
+    - slack-sdk

@@ -198,7 +198,7 @@ class Modelhandler:
         ]
  
          # Randomly select an icon URL
-        ICON_URL = random.choice(IMAGES)
+        ICON_URL = IMAGES[0]
         ICON_HTML = f'<img src="{ICON_URL}" alt="icon" style="width:45px; height:40px;">'
 
         if not history:
