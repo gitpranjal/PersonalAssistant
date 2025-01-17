@@ -199,7 +199,7 @@ class Modelhandler:
  
          # Randomly select an icon URL
         ICON_URL = IMAGES[0]
-        ICON_HTML = f'<img src="{ICON_URL}" alt="icon" style="width:45px; height:40px;">'
+        ICON_HTML = f'<img src="{ICON_URL}" alt="icon" style="width:50px; height:40px;">'
 
         if not history:
             initial_response = f"{ICON_HTML} Woof! Woof! My name is Scout, your pup assistant! What can I fetch for you today?"
