@@ -8,14 +8,6 @@ import gradio as gr
 import shutil
 import random
 
-
-
-# Constants
-
-OLLAMA_API = "http://localhost:11434/api/chat"
-MODEL = "llama3.2"
-os.environ["ALLOW_RESET"] = "TRUE"
-
 class Modelhandler:
     def __init__(self, localAPIUrl, model, tool:Tool):
         self.localAPIUrl = localAPIUrl
@@ -201,9 +193,6 @@ class Modelhandler:
         ICON_URL = IMAGES[0]
         ICON_HTML = f'<img src="{ICON_URL}" alt="icon" style="width:50px; height:40px;">'
 
-        if not history:
-            initial_response = f"{ICON_HTML} Woof! Woof! My name is Scout, your pup assistant! What can I fetch for you today?"
-            return [{"role": "assistant", "content": initial_response}]
 
         # Check if the history needs to be cleared
         if self._is_clear_history_request(message):

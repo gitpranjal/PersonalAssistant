@@ -7,7 +7,7 @@ from .tool import Tool
 class RepoAnalyzer(Tool):
     def __init__(self, **kwargs):
         self.localApiUrl = kwargs.get('localApiUrl', 'http://localhost:11434/api/chat')
-        self.model = kwargs.get('model', 'llama3.2')
+        self.model = kwargs.get('model')
         self.header = kwargs.get("header", {"Content-Type": "application/json"})
         self.tool_function = {
             "name": "analyze_repository",

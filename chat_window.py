@@ -4,7 +4,8 @@ import gradio as gr
 
 
 OLLAMA_API = "http://localhost:11434/api/chat"
-MODEL = "deepseek-r1"
+# MODEL = "deepseek-r1"
+MODEL = "llama3.2"
 
 if __name__ == "__main__":
     # Initialize the tool and model handler
