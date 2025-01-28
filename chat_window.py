@@ -4,13 +4,12 @@ import gradio as gr
 
 
 OLLAMA_API = "http://localhost:11434/api/chat"
-MODEL = "llama3.2"
+MODEL = "deepseek-r1"
 
 if __name__ == "__main__":
     # Initialize the tool and model handler
-    tool = RepoAnalyzer()
-    api = Modelhandler(OLLAMA_API, MODEL, tool)
-
+    tool = RepoAnalyzer(model=MODEL, localApiUrl=OLLAMA_API)
+    api = Modelhandler(localAPIUrl=OLLAMA_API, model=MODEL, tool=tool)
 
     gr.ChatInterface(fn=api.chat_with_tool_icon, type="messages").launch()
 

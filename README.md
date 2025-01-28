@@ -8,16 +8,22 @@ This project provides a chatbot interface powered by Gradio and an AI-based assi
 
 1. **Anaconda/Miniconda**: Ensure you have Anaconda or Miniconda installed on your system.
 2. **Python 3.11**: The project requires Python version 3.11.
-3. **Ollama**: The project uses Ollama to run Llama models locally. Ensure you have Ollama installed.
+3. **Ollama**: The project uses Ollama to run models locally. Ensure you have Ollama installed.
 
-### Setting up Ollama and Llama 3.2
+### Setting up Ollama and Choosing Your Model
 
 1. **Install Ollama**: Visit the [Ollama website](https://ollama.com) and follow the instructions to install Ollama on your system.
 
-2. **Download Llama 3.2**: Use the following command to download and set up Llama 3.2:
+2. **Choose Your Model**: Download and set up the model of your choice. For example, to download and set up `Llama 3.2`, use:
 
    ```bash
    ollama pull llama3.2
+   ```
+
+   Or, to use `DeepSeek R1`, use:
+
+   ```bash
+   ollama pull deepseek-r1
    ```
 
 3. **Run Ollama Locally**: Ensure Ollama is running locally on port 11434. Start the server with:
@@ -136,3 +142,4 @@ conda activate llmenv
 
 ---
 
+For example, currently I'm using `deepseek-r1`. Previously, I used `llama3.2`. You can choose and configure the model of your choice using the instructions above.

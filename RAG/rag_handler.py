@@ -19,9 +19,10 @@ from chromadb.config import Settings
 class RAGHandler:
     def __init__(self, **kwargs):
         self.model_url = kwargs.get("model_url", "http://localhost:11434/api/chat")
+        self.model = kwargs.get("model", "llama3.2")
         self.system_message = kwargs.get("system_message", """You are a helpful RAG assistant. 
                                          Use retrival augment geberation only if the user message is relevant to anything stored in vector score. Don't hallucinate. 
-                                         Return string 'NIL' if the user messsage is not related to the retrieved documents or the retrieved document is dummy document with file_name dummy.txt
+                                         Return the exact string 'VOID RAG RESPONSE', don;t add any explaination or string to it. This string will be compared in an if else statemnet, and the control will be transfered to default LLM repose if it is 'VOID RAG RESPONSE'. if the user messsage is not related to the retrieved documents or the retrieved document is dummy document with file_name dummy.txt
                                          """)
         self.db_name = kwargs.get("db_name", "developer_assistant_vectorstore")
         self.vectorstore = None
@@ -194,7 +195,7 @@ class RAGHandler:
         prompt = f"Context: {context}\n\nQuestion: {query}\n\nAnswer:"
         
         payload = {
-            "model": "llama3.2",
+            "model": self.model,
             "messages": [{"role": "system", "content": self.system_message}, {"role": "user", "content": prompt}],
             "stream": False
         }

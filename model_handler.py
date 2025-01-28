@@ -25,7 +25,7 @@ class Modelhandler:
             {"type": "function", "function": tool.get_tool_function_object()}
         ]
         self.tool = tool
-        self.rag_handler = RAGHandler()
+        self.rag_handler = RAGHandler(model=model)
 
 
     
@@ -223,7 +223,7 @@ class Modelhandler:
         # Check RAG handler response
         rag_response = self.rag_handler.chat(message).strip()
         print(f"Response from rag_handler object: \n{rag_response}")
-        if rag_response != "NIL":
+        if  "VOID RAG RESPONSE" not in rag_response:
             print(f"Responding through rag vector store which gave the following response \n\n {rag_response}")
             return [{"role": "assistant", "content": f"{ICON_HTML} {rag_response}"}]
 
